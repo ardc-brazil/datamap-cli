@@ -65,6 +65,12 @@ def main(
     pass
 
 
+# Import command modules
+from .commands import config
+
+# Add command groups
+app.add_typer(config.app, name="config", help="Configuration management commands")
+
 # Import command modules (will be implemented in subsequent tasks)
 # from .commands import dataset, version, download
 
