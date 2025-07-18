@@ -11,7 +11,6 @@ app = typer.Typer(
     name="datamap",
     help="DataMap CLI - A command-line interface for the DataMap platform API",
     add_completion=False,
-    rich_markup_mode="rich",
 )
 
 # Create console for rich output
@@ -46,12 +45,6 @@ def main(
         "-c",
         help="Path to configuration file",
     ),
-    output_format: str = typer.Option(
-        "table",
-        "--output-format",
-        "-f",
-        help="Output format (table, json, yaml, csv)",
-    ),
 ) -> None:
     """DataMap CLI - Interact with the DataMap platform API from the command line.
     
@@ -66,16 +59,16 @@ def main(
 
 
 # Import command modules
-from .commands import config
+from .commands import config, dataset
 
 # Add command groups
 app.add_typer(config.app, name="config", help="Configuration management commands")
+app.add_typer(dataset.app, name="dataset", help="Dataset-related commands")
 
 # Import command modules (will be implemented in subsequent tasks)
-# from .commands import dataset, version, download
+# from .commands import version, download
 
 # Add command groups
-# app.add_typer(dataset.app, name="dataset", help="Dataset-related commands")
 # app.add_typer(version.app, name="version", help="Version-related commands")
 # app.add_typer(download.app, name="download", help="Download commands")
 

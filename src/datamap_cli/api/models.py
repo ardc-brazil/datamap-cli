@@ -36,11 +36,12 @@ class DataFile(BaseModel):
     @property
     def formatted_size(self) -> str:
         """Return human-readable file size."""
+        size_bytes = self.size_bytes
         for unit in ['B', 'KB', 'MB', 'GB', 'TB']:
-            if self.size_bytes < 1024.0:
-                return f"{self.size_bytes:.1f} {unit}"
-            self.size_bytes /= 1024.0
-        return f"{self.size_bytes:.1f} PB"
+            if size_bytes < 1024.0:
+                return f"{size_bytes:.1f} {unit}"
+            size_bytes /= 1024.0
+        return f"{size_bytes:.1f} PB"
 
 
 class Version(BaseModel):
@@ -76,6 +77,16 @@ class Version(BaseModel):
     def file_count(self) -> int:
         """Return number of files in this version."""
         return len(self.files)
+
+    @property
+    def formatted_size(self) -> str:
+        """Return human-readable total size of all files in this version."""
+        total_bytes = self.total_size
+        for unit in ['B', 'KB', 'MB', 'GB', 'TB']:
+            if total_bytes < 1024.0:
+                return f"{total_bytes:.1f} {unit}"
+            total_bytes /= 1024.0
+        return f"{total_bytes:.1f} PB"
 
 
 class Dataset(BaseModel):
