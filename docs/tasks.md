@@ -113,28 +113,38 @@ This document contains a comprehensive list of tasks required to implement the D
 
 ---
 
-## Task 5: Dataset Commands Implementation
+## [DONE] Task 5: Dataset Commands Implementation ⭐
 
 **Priority:** High - Core functionality
 **Estimated Time:** 3-4 hours
 **Dependencies:** Tasks 2, 3
 
 ### Subtasks:
-1. **Implement dataset info command**
-   - Create `commands/dataset.py`
-   - Implement `datamap dataset info <uuid>` command
-   - Add UUID validation and error handling
-   - Create formatted output display
+1. **✅ Implement dataset info command**
+   - ✅ Create `commands/dataset.py`
+   - ✅ Implement `datamap dataset info <uuid>` command
+   - ✅ Add UUID validation and error handling
+   - ✅ Create formatted output display with Rich tables
 
-2. **Implement dataset versions command**
-   - Add `datamap dataset versions <uuid>` command
-   - Parse versions from dataset response
-   - Create tabular output for versions
+2. **✅ Implement dataset list command**
+   - ✅ Add `datamap dataset list` command with filtering and sorting
+   - ✅ Parse datasets from API response
+   - ✅ Create tabular output for datasets
 
-3. **Add command error handling**
-   - Implement proper error messages
-   - Add help text and examples
-   - Test with various error conditions
+3. **✅ Implement dataset download command**
+   - ✅ Add `datamap dataset download <uuid>` command
+   - ✅ Implement progress tracking with Rich progress bars
+   - ✅ Add file management and error handling
+
+4. **✅ Add command error handling**
+   - ✅ Implement proper error messages
+   - ✅ Add help text and examples
+   - ✅ Test with various error conditions
+
+5. **✅ Enhanced CLI framework**
+   - ✅ Updated to Typer 0.16.0 for compatibility
+   - ✅ Fixed CLI compatibility issues with Click 8.x
+   - ✅ Added Rich formatting throughout
 
 ---
 
