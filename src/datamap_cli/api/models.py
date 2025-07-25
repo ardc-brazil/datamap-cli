@@ -51,7 +51,7 @@ class Version(BaseModel):
     name: str = Field(..., description="Version name (string, not UUID)")
     design_state: str = Field(..., description="Version design state")
     is_enabled: bool = Field(..., description="Whether the version is enabled")
-    files: List[DataFile] = Field(default_factory=list, description="List of files in this version")
+    files_in: List[DataFile] = Field(default_factory=list, description="List of files in this version")
     created_at: datetime = Field(..., description="Version creation timestamp")
     updated_at: datetime = Field(..., description="Version last update timestamp")
 
@@ -71,12 +71,12 @@ class Version(BaseModel):
     @property
     def total_size(self) -> int:
         """Return total size of all files in this version."""
-        return sum(file.size_bytes for file in self.files)
+        return sum(file.size_bytes for file in self.files_in)
 
     @property
     def file_count(self) -> int:
         """Return number of files in this version."""
-        return len(self.files)
+        return len(self.files_in)
 
     @property
     def formatted_size(self) -> str:

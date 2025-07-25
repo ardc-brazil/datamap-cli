@@ -59,17 +59,17 @@ def main(
 
 
 # Import command modules
-from .commands import config, dataset
+from .commands import config, dataset, version
 
 # Add command groups
 app.add_typer(config.app, name="config", help="Configuration management commands")
 app.add_typer(dataset.app, name="dataset", help="Dataset-related commands")
+app.add_typer(version.app, name="version", help="Version-related commands")
 
 # Import command modules (will be implemented in subsequent tasks)
-# from .commands import version, download
+# from .commands import download
 
 # Add command groups
-# app.add_typer(version.app, name="version", help="Version-related commands")
 # app.add_typer(download.app, name="download", help="Download commands")
 
 

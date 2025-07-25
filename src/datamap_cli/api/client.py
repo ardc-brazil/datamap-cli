@@ -302,20 +302,30 @@ class DataMapAPIClient:
         )
         
         try:
-            version = await self._make_request(
+            # Get the raw response first
+            response_data = await self._make_request(
                 method="GET",
                 endpoint=f"/datasets/{dataset_id}/versions/{version_name}",
-                model_class=Version,
             )
             
-            logger.info(
-                "Version fetched successfully",
-                dataset_id=dataset_id,
-                version_name=version_name,
-                file_count=version.file_count,
-            )
-            
-            return version
+            # Extract the version data from the response
+            if isinstance(response_data, dict) and 'version' in response_data:
+                version_data = response_data['version']
+                logger.info(f"Extracted version data: {version_data}")
+                
+                # Parse the version data
+                version = Version(**version_data)
+                
+                logger.info(
+                    "Version fetched successfully",
+                    dataset_id=dataset_id,
+                    version_name=version_name,
+                    file_count=version.file_count,
+                )
+                
+                return version
+            else:
+                raise DataMapAPIError("Response does not contain version data")
             
         except NotFoundError:
             raise NotFoundError("Version", f"{dataset_id}/{version_name}")
