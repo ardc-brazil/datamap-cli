@@ -96,7 +96,7 @@ class TestVersion:
         assert version.name == "v1.0"
         assert version.design_state == "active"
         assert version.is_enabled is True
-        assert version.files == []
+        assert version.files_in == []
     
     def test_version_with_files(self):
         """Test Version with files."""
@@ -113,15 +113,15 @@ class TestVersion:
             "name": "v1.0",
             "design_state": "active",
             "is_enabled": True,
-            "files": [file_data],
+            "files_in": [file_data],
             "created_at": "2023-01-01T00:00:00Z",
             "updated_at": "2023-01-01T00:00:00Z",
         }
         
         version = Version(**data)
         
-        assert len(version.files) == 1
-        assert version.files[0].name == "test.csv"
+        assert len(version.files_in) == 1
+        assert version.files_in[0].name == "test.csv"
         assert version.file_count == 1
         assert version.total_size == 1024
 
@@ -162,7 +162,7 @@ class TestDataset:
             "name": "v1.0",
             "design_state": "active",
             "is_enabled": True,
-            "files": [],
+            "files_in": [],
             "created_at": "2023-01-01T00:00:00Z",
             "updated_at": "2023-01-01T00:00:00Z",
         }
