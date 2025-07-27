@@ -11,6 +11,7 @@ from rich.console import Console
 from rich.table import Table
 
 from ..config.settings import get_settings
+from .cli_context import resolve_output_format, resolve_color_output
 
 
 class OutputFormatter:
@@ -41,8 +42,8 @@ class OutputFormatter:
         Returns:
             Formatted output string
         """
-        output_format = output_format or self.settings.output_format
-        color_output = color_output if color_output is not None else self.settings.color_output
+        output_format = resolve_output_format(output_format)
+        color_output = resolve_color_output(color_output)
         
         if output_format == "json":
             return self._format_json(data)
@@ -68,9 +69,12 @@ class OutputFormatter:
             output_format: Output format
             color_output: Whether to enable colored output
         """
-        if output_format == "table" or (output_format is None and self.settings.output_format == "table"):
+        resolved_format = resolve_output_format(output_format)
+        resolved_color = resolve_color_output(color_output)
+        
+        if resolved_format == "table":
             # For tables, use rich's built-in printing
-            self._print_table(data, color_output or False)
+            self._print_table(data, resolved_color)
         else:
             # For other formats, format as string and print
             formatted = self.format_output(data, output_format, color_output)

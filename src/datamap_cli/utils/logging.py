@@ -70,12 +70,20 @@ def setup_logging(
     )
     
     # Configure standard library logging
-    logging.basicConfig(
-        format="%(message)s",
-        stream=sys.stderr,
-        level=level,
-        handlers=[RichHandler(console=Console(stderr=True))] if color_output else None,
-    )
+    if color_output:
+        # Use RichHandler for colored output
+        logging.basicConfig(
+            format="%(message)s",
+            level=level,
+            handlers=[RichHandler(console=Console(stderr=True))],
+        )
+    else:
+        # Use standard stderr for non-colored output
+        logging.basicConfig(
+            format="%(message)s",
+            stream=sys.stderr,
+            level=level,
+        )
 
 
 def get_logger(name: str) -> structlog.stdlib.BoundLogger:
