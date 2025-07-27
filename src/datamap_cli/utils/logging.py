@@ -11,6 +11,33 @@ from rich.logging import RichHandler
 from ..config.settings import get_settings
 
 
+def plain_text_renderer(logger, method_name, event_dict):
+    """Plain text renderer without any color codes or formatting."""
+    timestamp = event_dict.get("timestamp", "")
+    level = event_dict.get("level", "").upper()
+    logger_name = event_dict.get("logger", "")
+    event = event_dict.get("event", "")
+    
+    # Build the message
+    parts = []
+    if timestamp:
+        parts.append(f"[{timestamp}]")
+    if level:
+        parts.append(f"{level}")
+    if logger_name:
+        parts.append(f"[{logger_name}]")
+    if event:
+        parts.append(event)
+    
+    # Add other fields (excluding special structlog fields)
+    special_fields = {"timestamp", "level", "logger", "event", "logger_name"}
+    for key, value in event_dict.items():
+        if key not in special_fields:
+            parts.append(f"{key}={value}")
+    
+    return " ".join(parts)
+
+
 def setup_logging(
     log_level: Optional[str] = None,
     log_format: Optional[str] = None,
@@ -46,8 +73,9 @@ def setup_logging(
     if log_format == "json":
         processors.append(structlog.processors.JSONRenderer())
     else:
-        # Text format with rich console for colored output
+        # Text format
         if color_output:
+            # Colored text format with rich console
             console = Console(stderr=True)
             processors.append(
                 structlog.dev.ConsoleRenderer(
@@ -55,11 +83,10 @@ def setup_logging(
                 )
             )
         else:
-            processors.append(
-                structlog.dev.ConsoleRenderer(
-                    colors=False,
-                )
-            )
+            # Plain text format without any color codes
+            processors.append(structlog.processors.format_exc_info)
+            processors.append(structlog.processors.TimeStamper(fmt="%Y-%m-%d %H:%M:%S"))
+            processors.append(plain_text_renderer)
     
     structlog.configure(
         processors=processors,

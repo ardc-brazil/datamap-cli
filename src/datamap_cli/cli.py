@@ -260,9 +260,13 @@ def main(
     # Set up logging
     log_level = get_effective_log_level()
     
+    # Use CLI context to resolve color_output
+    from .utils.cli_context import resolve_color_output
+    resolved_color_output = resolve_color_output(color_output)
+    
     setup_logging(
         log_level=log_level,
-        color_output=color_output if color_output is not None else True
+        color_output=resolved_color_output
     )
     
 
