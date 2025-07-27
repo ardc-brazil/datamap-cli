@@ -50,7 +50,7 @@ class TestDatasetCommands:
             name="v1.0",
             design_state="published",
             is_enabled=True,
-            files=files,
+            files_in=files,
             created_at=datetime(2023, 1, 1),
             updated_at=datetime(2023, 1, 1),
         )

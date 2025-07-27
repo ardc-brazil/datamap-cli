@@ -140,7 +140,8 @@ class TestDataMapAPIClient:
         }
         
         with patch.object(DataMapAPIClient, '_make_request') as mock_request:
-            mock_request.return_value = Version(**mock_version_data)
+            # Mock the response to include the version key as expected by the API
+            mock_request.return_value = {"version": mock_version_data}
             
             client = DataMapAPIClient(
                 api_key="test-key",
@@ -156,7 +157,6 @@ class TestDataMapAPIClient:
             mock_request.assert_called_once_with(
                 method="GET",
                 endpoint="/datasets/dataset-id/versions/v1.0",
-                model_class=Version,
             )
     
     @pytest.mark.asyncio

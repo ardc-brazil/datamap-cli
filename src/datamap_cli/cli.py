@@ -59,18 +59,14 @@ def main(
 
 
 # Import command modules
-from .commands import config, dataset, version
+from .commands import config, dataset, version, download, file
 
 # Add command groups
 app.add_typer(config.app, name="config", help="Configuration management commands")
 app.add_typer(dataset.app, name="dataset", help="Dataset-related commands")
 app.add_typer(version.app, name="version", help="Version-related commands")
-
-# Import command modules (will be implemented in subsequent tasks)
-# from .commands import download
-
-# Add command groups
-# app.add_typer(download.app, name="download", help="Download commands")
+app.add_typer(download.app, name="download", help="Download commands")
+app.add_typer(file.app, name="file", help="File-related commands")
 
 
 if __name__ == "__main__":
