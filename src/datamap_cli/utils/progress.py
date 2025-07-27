@@ -20,6 +20,7 @@ from rich.text import Text
 from rich.panel import Panel
 
 from ..config.settings import get_settings
+from .cli_context import should_show_progress
 
 
 class ProgressManager:
@@ -43,6 +44,9 @@ class ProgressManager:
             text: Text to display with spinner
             style: Spinner style
         """
+        if not should_show_progress():
+            return
+            
         if self._current_spinner:
             self.stop_spinner()
         
@@ -112,6 +116,8 @@ class ProgressManager:
             message: Message to display
             style: Message style
         """
+        if not should_show_progress():
+            return
         self.console.print(message, style=style)
     
     def show_error(self, message: str) -> None:
@@ -128,6 +134,8 @@ class ProgressManager:
         Args:
             message: Success message to display
         """
+        if not should_show_progress():
+            return
         self.console.print(f"✅ {message}", style="green")
     
     def show_warning(self, message: str) -> None:
@@ -136,6 +144,8 @@ class ProgressManager:
         Args:
             message: Warning message to display
         """
+        if not should_show_progress():
+            return
         self.console.print(f"⚠️  {message}", style="yellow")
 
 
@@ -169,6 +179,9 @@ class DownloadProgressTracker:
         self.completed_files = 0
         self.downloaded_bytes = 0
         
+        if not should_show_progress():
+            return
+            
         self.overall_progress = self.progress_manager.create_simple_progress(
             f"Downloading {total_files} files"
         )
@@ -181,6 +194,9 @@ class DownloadProgressTracker:
             filename: Name of the file being downloaded
             file_size: Size of the file in bytes
         """
+        if not should_show_progress():
+            return
+            
         if self.file_progress:
             self.file_progress.stop()
         
@@ -198,6 +214,9 @@ class DownloadProgressTracker:
         Args:
             downloaded_bytes: Number of bytes downloaded for current file
         """
+        if not should_show_progress():
+            return
+            
         if self.file_progress and hasattr(self, 'current_task'):
             self.file_progress.update(self.current_task, completed=downloaded_bytes)
     
