@@ -130,7 +130,7 @@ def should_show_progress() -> bool:
 
 
 def get_effective_log_level() -> str:
-    """Get effective log level based on global options.
+    """Get effective log level based on global options and configuration.
     
     Returns:
         Effective log level
@@ -140,4 +140,6 @@ def get_effective_log_level() -> str:
     elif get_global_quiet():
         return "ERROR"
     else:
-        return "INFO" 
+        # Use configuration file log level as default
+        from ..config.settings import get_settings
+        return get_settings().log_level 
