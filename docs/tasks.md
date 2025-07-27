@@ -173,33 +173,33 @@ This document contains a comprehensive list of tasks required to implement the D
 
 ---
 
-## Task 7: Download Commands Implementation
+## [DONE] Task 7: Download Commands Implementation ⭐
 
 **Priority:** High - Core functionality
 **Estimated Time:** 6-8 hours
 **Dependencies:** Tasks 2, 3, 4, 6
 
 ### Subtasks:
-1. **Implement single file download**
-   - Create `commands/download.py`
-   - Implement `datamap download file <dataset_uuid> <version_name> <file_uuid>` command
-   - Add progress bar for downloads
-   - Implement resume capability
+1. **✅ Implement single file download**
+   - ✅ Create `commands/download.py`
+   - ✅ Implement `datamap download file <dataset_uuid> <version_name> <file_uuid>` command
+   - ✅ Add progress bar for downloads
+   - ✅ Implement resume capability
 
-2. **Implement version download**
-   - Add `datamap download version <dataset_uuid> <version_name>` command
-   - Implement concurrent downloads
-   - Add overall progress tracking
+2. **✅ Implement version download**
+   - ✅ Add `datamap download version <dataset_uuid> <version_name>` command
+   - ✅ Implement concurrent downloads
+   - ✅ Add overall progress tracking
 
-3. **Add download features**
-   - Implement checksum verification
-   - Add output directory handling
-   - Create download error handling
+3. **✅ Add download features**
+   - ✅ Implement checksum verification (basic file size verification, TODO: full checksum when API provides)
+   - ✅ Add output directory handling
+   - ✅ Create download error handling
 
-4. **File system operations**
-   - Implement safe file path handling
-   - Add disk space checking
-   - Handle permission errors
+4. **✅ File system operations**
+   - ✅ Implement safe file path handling
+   - ✅ Add disk space checking
+   - ✅ Handle permission errors
 
 ---
 

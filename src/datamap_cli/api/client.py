@@ -311,7 +311,7 @@ class DataMapAPIClient:
             # Extract the version data from the response
             if isinstance(response_data, dict) and 'version' in response_data:
                 version_data = response_data['version']
-                logger.info(f"Extracted version data: {version_data}")
+                # logger.debug(f"Extracted version data: {version_data}")
                 
                 # Parse the version data
                 version = Version(**version_data)

@@ -70,12 +70,12 @@ def validate_version_name(version_name: str) -> str:
     if not version_name or not version_name.strip():
         raise typer.BadParameter("Version name cannot be empty")
     
-    # Version names should be alphanumeric with possible hyphens/underscores
-    version_pattern = re.compile(r'^[a-zA-Z0-9_-]+$')
+    # Version names should be alphanumeric with possible hyphens/underscores/dots
+    version_pattern = re.compile(r'^[a-zA-Z0-9_.-]+$')
     if not version_pattern.match(version_name):
         raise typer.BadParameter(
             f"Invalid version name format: {version_name}. "
-            "Version names should contain only alphanumeric characters, hyphens, and underscores"
+            "Version names should contain only alphanumeric characters, hyphens, underscores, and dots"
         )
     
     return version_name.strip()
@@ -99,7 +99,7 @@ async def _get_api_client() -> DataMapAPIClient:
     )
 
 
-@app.command()
+@app.command(name="files")
 def files(
     dataset_uuid: str = typer.Argument(
         ...,
